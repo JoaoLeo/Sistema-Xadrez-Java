@@ -7,12 +7,17 @@ import tabuleiro.TabuleiroException;
 import xadrez.pecas.Rei;
 import xadrez.pecas.Torre;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class PartidaDeXadrez {
 	private int turno;
 	private Cores jogadorAtual;
 	private Tabuleiro tabuleiro;
-	
+	private List<Peca> pecasNoTabuleiro = new ArrayList<>();
+	private List<Peca> pecasCapturdas = new ArrayList<>();
+
 	public PartidaDeXadrez() {
 		tabuleiro = new Tabuleiro(8,8);
 		turno = 1;
@@ -54,6 +59,11 @@ public class PartidaDeXadrez {
 		Peca p = tabuleiro.removerPeca(origem); // Retira a peça da posição de origem;
 		Peca pecaCapturada = tabuleiro.removerPeca(destino); // Remove a peça que está na posição de destino, pois foi capturada
 		tabuleiro.colocarPeca(p, destino);
+
+		if(pecaCapturada != null){
+			pecasNoTabuleiro.remove(pecaCapturada);
+			pecasCapturdas.add(pecaCapturada);
+		}
 		return pecaCapturada;
 	}
 	private void validaPosicaodeOrigem(Posicao posicao){
@@ -72,8 +82,9 @@ public class PartidaDeXadrez {
 		turno++;
 		jogadorAtual = (jogadorAtual == Cores.WHITE) ? Cores.BLACK : Cores.WHITE;
 	}
-	private void colocaNovaPeca(char coluna, int linha, Peca peca){
+	private void colocaNovaPeca(char coluna, int linha, PecaDeXadrez peca){
 		tabuleiro.colocarPeca(peca, new XadrezPosicao(coluna, linha).converteParaPosicao());
+		pecasNoTabuleiro.add(peca);
 	}
 	private void setupInicial() {
 		colocaNovaPeca('c', 1, new Torre(tabuleiro, Cores.WHITE));
