@@ -1,6 +1,6 @@
 package app;
 
-import xadrez.Cores;
+import xadrez.Cor;
 import xadrez.PartidaDeXadrez;
 import xadrez.PecaDeXadrez;
 import xadrez.XadrezPosicao;
@@ -51,7 +51,15 @@ public class UI {
 		System.out.println();
 		printPecasCapturadas(capturadas);
 		System.out.println("Turno: " + partidaDeXadrez.getTurno());
-		System.out.println("Esperando o jogador: " + partidaDeXadrez.getJogadorAtual());
+		if(!partidaDeXadrez.getCheckMate()) {
+			System.out.println("Esperando o jogador: " + partidaDeXadrez.getJogadorAtual());
+			if (partidaDeXadrez.getCheck())
+				System.out.println("CHECK!");
+		}
+		else {
+			System.out.println("CHECKMATE!");
+			System.out.println("Vencedor: " + partidaDeXadrez.getJogadorAtual());
+		}
 	}
 
 	public static void printTabuleiro(PecaDeXadrez[][] peca){
@@ -82,7 +90,7 @@ public class UI {
 			System.out.print("-" + ANSI_RESET);
 		}
 		else {
-			if (peca.getCor() == Cores.WHITE) {
+			if (peca.getCor() == Cor.WHITE) {
 				System.out.print(ANSI_WHITE + peca + ANSI_RESET);
 			}
 			else {
@@ -94,11 +102,11 @@ public class UI {
 	private static void printPecasCapturadas(List<PecaDeXadrez> pecasDeXadrezCapturadas){
 		List<PecaDeXadrez> pecasBrancasCapturadas = pecasDeXadrezCapturadas
 				.stream()
-				.filter(p -> p.getCor() == Cores.WHITE)
+				.filter(p -> p.getCor() == Cor.WHITE)
 				.collect(Collectors.toList());
 		List<PecaDeXadrez> pecasPretasCapturadas = pecasDeXadrezCapturadas
 				.stream()
-				.filter(p -> p.getCor() == Cores.BLACK)
+				.filter(p -> p.getCor() == Cor.BLACK)
 				.collect(Collectors.toList());
 		System.out.println("Peças capturadas: ");
 		System.out.print("Brancas: ");

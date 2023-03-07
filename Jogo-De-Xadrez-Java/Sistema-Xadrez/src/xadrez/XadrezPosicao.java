@@ -24,7 +24,7 @@ public class XadrezPosicao {
         return new Posicao(8 - linha, coluna - 'a');
     }
     protected static XadrezPosicao converteParaXadrezPosicao(Posicao posicao){
-        return new XadrezPosicao((char) ('a' - posicao.getColuna()), 8 - posicao.getLinha());
+        return new XadrezPosicao((char) ('a' + posicao.getColuna()), 8 - posicao.getLinha());
     }
 
     @Override

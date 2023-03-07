@@ -17,7 +17,7 @@ public class Program {
 		Scanner input = new Scanner(System.in);
 		PartidaDeXadrez partidaDeXadrez = new PartidaDeXadrez();
 		List<PecaDeXadrez> pecasCapturadas = new ArrayList<>();
-		while (true){
+		while (!partidaDeXadrez.getCheckMate()) {
 			try {
 				UI.limparTela();
 				UI.printPartida(partidaDeXadrez, pecasCapturadas);
@@ -31,17 +31,18 @@ public class Program {
 				System.out.print("Destino: ");
 				XadrezPosicao destino = UI.lerXadrezPosicao(input);
 				PecaDeXadrez pecaCapturada = partidaDeXadrez.performaMovimentoDeXadrez(origem, destino);
-				if(pecaCapturada != null)
+				if (pecaCapturada != null)
 					pecasCapturadas.add(pecaCapturada);
 
-			} catch(XadrezException e){
+			} catch (XadrezException e) {
 				System.out.println(e.getMessage());
 				input.nextLine();
-			}
-			catch(InputMismatchException e){
+			} catch (InputMismatchException e) {
 				System.out.println(e.getMessage());
 				input.nextLine();
 			}
 		}
+		UI.limparTela();
+		UI.printPartida(partidaDeXadrez, pecasCapturadas);
 	}
 }
