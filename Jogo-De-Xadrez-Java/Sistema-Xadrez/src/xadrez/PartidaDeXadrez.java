@@ -60,8 +60,8 @@ public class PartidaDeXadrez {
 			desfazerMovimento(posicaoDeOrigem, posicaoDeDestino, pecaCapturada);
 			throw new XadrezException("Você não pode se colocar em check");
 		}
-		check = testeCheckMate(oponente(jogadorAtual)) ? true : false;
-		if(testeCheck(oponente(jogadorAtual)))
+		check = testeCheck(oponente(jogadorAtual)) ? true : false;
+		if(testeCheckMate(oponente(jogadorAtual)))
 			checkMate = true;
 		else
 			proximoTurno();
