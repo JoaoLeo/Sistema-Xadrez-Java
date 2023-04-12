@@ -33,7 +33,15 @@ public class Program {
 				PecaDeXadrez pecaCapturada = partidaDeXadrez.performaMovimentoDeXadrez(origem, destino);
 				if (pecaCapturada != null)
 					pecasCapturadas.add(pecaCapturada);
-
+				if(partidaDeXadrez.getPromovida() != null){
+					System.out.print("Digite a letra da peça que para promoção (B/C/T/Q): ");
+					String tipo = input.nextLine().toUpperCase();
+					while (!tipo.equals("B") && !tipo.equals("C") && !tipo.equals("T") & !tipo.equals("Q")) {
+						System.out.print("Valor invalido! Digite a letra da peça que para promoção (B/C/T/Q): ");
+						tipo = input.nextLine().toUpperCase();
+					}
+					partidaDeXadrez.trocaPecaPromovida(tipo);
+				}
 			} catch (XadrezException e) {
 				System.out.println(e.getMessage());
 				input.nextLine();
